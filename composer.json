@@ -1,0 +1,12 @@
+{
+    "name": "notimatica/exceptions",
+    "autoload": {
+        "psr-4": {
+            "Notimatica\\Exceptions\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "~5.2"
+    }
+}
