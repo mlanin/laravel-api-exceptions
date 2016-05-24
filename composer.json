@@ -1,5 +1,5 @@
 {
-    "name": "notimatica/exceptions",
+    "name": "notimatica/api-exceptions",
     "autoload": {
         "psr-4": {
             "Notimatica\\ApiExceptions\\": "src/"
