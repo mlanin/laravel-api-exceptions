@@ -1,6 +1,6 @@
 <?php
 
-namespace Notimatica\Exceptions;
+namespace Notimatica\ApiExceptions;
 
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
