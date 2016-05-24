@@ -2,11 +2,11 @@
     "name": "notimatica/exceptions",
     "autoload": {
         "psr-4": {
-            "Notimatica\\Exceptions\\": "src/"
+            "Notimatica\\ApiExceptions\\": "src/"
         }
     },
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=5.6.0",
         "illuminate/support": "~5.2"
     }
 }

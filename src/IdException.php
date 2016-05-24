@@ -1,6 +1,6 @@
 <?php
 
-namespace Notimatica\Exceptions;
+namespace Notimatica\ApiExceptions;
 
 class IdException extends \RuntimeException
 {
