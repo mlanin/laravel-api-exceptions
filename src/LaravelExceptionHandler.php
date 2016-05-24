@@ -9,8 +9,6 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Tymon\JWTAuth\Exceptions\TokenExpiredException;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class LaravelExceptionHandler extends ExceptionHandler
 {
@@ -56,12 +54,6 @@ class LaravelExceptionHandler extends ExceptionHandler
         switch (true) {
             case $e instanceof ApiException:
                 $response = response()->json($e, $e->getCode(), $e->getHeaders());
-                break;
-            case $e instanceof TokenExpiredException:
-                $response = response()->json(['token_expired'], $e->getStatusCode());
-                break;
-            case $e instanceof TokenInvalidException:
-                $response = response()->json(['token_invalid'], $e->getStatusCode());
                 break;
             case $e instanceof AuthorizationException:
                 $e = new UnauthorizedApiException('', $e);
