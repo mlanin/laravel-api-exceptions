@@ -4,7 +4,7 @@ namespace Notimatica\ApiExceptions;
 
 use Exception;
 
-class ValidationFailedApiException  extends ApiException
+class ValidationFailedApiException extends ApiException implements DontReport
 {
     /**
      * @var array

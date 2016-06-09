@@ -4,7 +4,7 @@ namespace Notimatica\ApiExceptions;
 
 use Exception;
 
-class NotFoundApiException extends ApiException
+class NotFoundApiException extends ApiException implements DontReport
 {
     /**
      * @param string $message

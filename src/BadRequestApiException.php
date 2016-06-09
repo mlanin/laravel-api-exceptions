@@ -4,7 +4,7 @@ namespace Notimatica\ApiExceptions;
 
 use Exception;
 
-class BadRequestApiException extends ApiException
+class BadRequestApiException extends ApiException implements DontReport
 {
     /**
      * @param string $message
