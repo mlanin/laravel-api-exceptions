@@ -4,7 +4,7 @@ namespace Notimatica\ApiExceptions;
 
 use Exception;
 
-class ForbiddenApiException extends ApiException
+class ForbiddenApiException extends ApiException implements DontReport
 {
     /**
      * @param string $message

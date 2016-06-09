@@ -22,7 +22,7 @@ class LaravelExceptionHandler extends ExceptionHandler
         HttpException::class,
         ModelNotFoundException::class,
         ValidationException::class,
-        UnauthorizedApiException::class,
+        DontReport::class,
     ];
 
     /**
