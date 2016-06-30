@@ -71,7 +71,7 @@ abstract class ApiException extends IdException implements Jsonable, \JsonSerial
         $return['id'] = $e instanceof IdException ? $e->getId() : snake_case(class_basename($e));
         $return['message'] = $e->getMessage();
 
-        if ($e instanceof ApiException) {
+        if ($e instanceof self) {
             $meta = $this->getMeta();
             if (! empty($meta)) {
                 $return['meta'] = $meta;
@@ -107,5 +107,7 @@ abstract class ApiException extends IdException implements Jsonable, \JsonSerial
      *
      * @return mixed
      */
-    public function getMeta() {}
+    public function getMeta()
+    {
+    }
 }

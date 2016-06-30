@@ -1,4 +1,6 @@
-<?php namespace Lanin\Laravel\SetupWizard\Tests;
+<?php
+
+namespace Lanin\Laravel\SetupWizard\Tests;
 
 use Lanin\Laravel\ApiExceptions\ApiExceptionsServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
@@ -70,8 +72,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected function getPublicProperty($class, $name)
     {
-        if ( ! is_string($class))
-        {
+        if (! is_string($class)) {
             $class = get_class($class);
         }
 
@@ -91,8 +92,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected function getPublicMethod($name, $class)
     {
-        if ( ! is_string($class))
-        {
+        if (! is_string($class)) {
             $class = get_class($class);
         }
 

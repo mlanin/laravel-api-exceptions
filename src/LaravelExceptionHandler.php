@@ -36,7 +36,7 @@ class LaravelExceptionHandler extends ExceptionHandler
      */
     public function report(Exception $e)
     {
-        if ($this->shouldReport($e) || !env('APP_DEBUG')) {
+        if ($this->shouldReport($e) || ! env('APP_DEBUG')) {
             $this->log->error(
                 $e instanceof ApiException ? $e->toReport() : $e
             );
