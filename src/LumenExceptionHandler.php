@@ -5,9 +5,9 @@ namespace Lanin\Laravel\ApiExceptions;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
 use Lanin\Laravel\ApiExceptions\Contracts\DontReport;
+use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -23,7 +23,7 @@ class LumenExceptionHandler extends ExceptionHandler
         HttpException::class,
         ModelNotFoundException::class,
         ValidationException::class,
-        DontReport::class
+        DontReport::class,
     ];
 
     /**
@@ -36,7 +36,7 @@ class LumenExceptionHandler extends ExceptionHandler
      */
     public function report(Exception $e)
     {
-        if ($this->shouldReport($e) || !env('APP_DEBUG')) {
+        if ($this->shouldReport($e) || ! env('APP_DEBUG')) {
             try {
                 $logger = app('Psr\Log\LoggerInterface');
             } catch (Exception $ex) {

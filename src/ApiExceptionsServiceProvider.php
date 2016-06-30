@@ -27,6 +27,5 @@ class ApiExceptionsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
     }
 }
