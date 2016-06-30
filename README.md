@@ -33,7 +33,7 @@ Lanin\Laravel\ApiExceptions\ApiExceptionsServiceProvider::class,
 
 Every ApiException can be thrown as a normal exception and they will be automatically serialized to JSON with corresponding HTTP status:
 
-```
+```json
 {
     "id": "not_found",
     "message": "Requested object not found."
