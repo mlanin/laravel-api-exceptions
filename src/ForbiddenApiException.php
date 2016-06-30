@@ -3,6 +3,7 @@
 namespace Notimatica\ApiExceptions;
 
 use Exception;
+use Notimatica\ApiExceptions\Contracts\DontReport;
 
 class ForbiddenApiException extends ApiException implements DontReport
 {

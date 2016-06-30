@@ -3,8 +3,9 @@
 namespace Notimatica\ApiExceptions;
 
 use Exception;
+use Notimatica\ApiExceptions\Contracts\LogTrace;
 
-class InternalServerErrorApiException extends ApiException
+class InternalServerErrorApiException extends ApiException implements LogTrace
 {
     /**
      * @param string $message

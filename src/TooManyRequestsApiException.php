@@ -3,8 +3,9 @@
 namespace Notimatica\ApiExceptions;
 
 use Exception;
+use Notimatica\ApiExceptions\Contracts\DontReport;
 
-class TooManyRequestsApiException extends ApiException
+class TooManyRequestsApiException extends ApiException implements DontReport
 {
     /**
      * @var int|null
