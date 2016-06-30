@@ -9,7 +9,7 @@ The goal of this package is to provide you with a set of most common exceptions 
 * Handles exceptions report to logs.
 * Overwrites default Validator to make validation errors more verbose.
 * Has a FormRequest that to handle validation errors and pass them to ApiExceptions layer.
-* Has middleware to catch all system errors such us RuntimeExceptions or ModelNotFoundException to handle them and threat as normal ApiExceptions.
+* Has middleware to catch all system errors such us `RuntimeExceptions` or `ModelNotFoundException` to handle them and threat as normal ApiExceptions.
 
 ## Installation
 
@@ -94,7 +94,7 @@ It will automatically support validation errors and pass them to the output.
 
 It also has a very handy helper method `validatedOnly()` that returns from request only those items that are registered in rules method.
 
-### RuntimeErrorHandler
+### RuntimeExceptionsHandler
 
 Also you can catch all system exceptions using `\Lanin\Laravel\ApiExceptions\Support\RuntimeExceptionsHandler`. 
 Just import it to your `Http\Kernel` $middleware array, and that's it.
