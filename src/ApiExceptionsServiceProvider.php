@@ -5,7 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Notimatica\ApiExceptions\Support\Validator;
 
-class LaravelApiExceptionsServiceProvider extends ServiceProvider
+class ApiExceptionsServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
