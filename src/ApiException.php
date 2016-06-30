@@ -4,6 +4,7 @@ namespace Notimatica\ApiExceptions;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
+use Notimatica\ApiExceptions\Contracts\LogTrace;
 
 abstract class ApiException extends IdException implements Jsonable, \JsonSerializable, Arrayable
 {
@@ -57,13 +58,14 @@ abstract class ApiException extends IdException implements Jsonable, \JsonSerial
     /**
      * Convert exception to array.
      *
+     * @param  bool $report
      * @return string
      */
-    public function toArray()
+    public function toArray($report = false)
     {
         $e = $this;
 
-        if (env('APP_DEBUG') && $this->getPrevious() !== null) {
+        if ((env('APP_DEBUG') || $report) && $this->getPrevious() !== null) {
             $e = $this->getPrevious();
         }
 
@@ -71,13 +73,18 @@ abstract class ApiException extends IdException implements Jsonable, \JsonSerial
         $return['id'] = $e instanceof IdException ? $e->getId() : snake_case(class_basename($e));
         $return['message'] = $e->getMessage();
 
-        $meta = $this->getMeta();
-        if (! empty($meta)) {
-            $return['meta'] = $meta;
+        if ($e instanceof ApiException) {
+            $meta = $this->getMeta();
+            if (! empty($meta)) {
+                $return['meta'] = $meta;
+            }
         }
 
-        if (env('APP_DEBUG')) {
-            $return['trace'] = $e->getTrace();
+        if (env('APP_DEBUG') || $report) {
+            $return['trace'] = [
+                'file' => $e->getFile() . ':' . $e->getLine(),
+                'trace' => $e->getTrace(),
+            ];
         }
 
         return $return;

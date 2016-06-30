@@ -7,6 +7,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
+use Notimatica\ApiExceptions\Contracts\DontReport;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -35,11 +36,15 @@ class LumenExceptionHandler extends ExceptionHandler
      */
     public function report(Exception $e)
     {
-        if ($e instanceof ApiException) {
-            $e = $e->toReport();
-        }
+        if ($this->shouldReport($e) || !env('APP_DEBUG')) {
+            try {
+                $logger = app('Psr\Log\LoggerInterface');
+            } catch (Exception $ex) {
+                throw $e; // throw the original exception
+            }
 
-        parent::report($e);
+            $logger->error($e instanceof ApiException ? $e->toReport() : $e);
+        }
     }
 
     /**

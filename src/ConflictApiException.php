@@ -3,6 +3,7 @@
 namespace Notimatica\ApiExceptions;
 
 use Exception;
+use Notimatica\ApiExceptions\Contracts\DontReport;
 
 class ConflictApiException extends ApiException implements DontReport
 {

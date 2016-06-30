@@ -3,6 +3,7 @@
 namespace Notimatica\ApiExceptions;
 
 use Exception;
+use Notimatica\ApiExceptions\Contracts\DontReport;
 
 class BadRequestApiException extends ApiException implements DontReport
 {
