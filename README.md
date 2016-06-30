@@ -31,7 +31,7 @@ Lanin\Laravel\ApiExceptions\ApiExceptionsServiceProvider::class,
 
 ### Exceptions
 
-Every exception can be serialized to JSON with corresponding HTTP status:
+Every ApiException can be thrown as a normal exception and they will be automatically serialized to JSON with corresponding HTTP status:
 
 ```
 {
@@ -40,7 +40,7 @@ Every exception can be serialized to JSON with corresponding HTTP status:
 }
 ```
 
-This object will be also populated with trace info, when APP_DEBUG is true.
+This object will be also populated with trace info, when `APP_DEBUG` is true.
 
 Also it can have `meta` attribute when there is additional info. For example for validation errors:
 ```json
