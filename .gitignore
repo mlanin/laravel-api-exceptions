@@ -1,5 +1,4 @@
-composer.phar
+/.idea/
+/build/
+/vendor/
 composer.lock
-vendor
-.php_cs.cache
-/.idea

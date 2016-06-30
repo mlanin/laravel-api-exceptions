@@ -1,4 +1,4 @@
-<?php namespace Notimatica\ApiExceptions\Contracts;
+<?php namespace Lanin\Laravel\ApiExceptions\Contracts;
 
 interface DontReport
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Notimatica\ApiExceptions\Support;
+namespace Lanin\Laravel\ApiExceptions\Support;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use Notimatica\ApiExceptions\ValidationFailedApiException;
+use Lanin\Laravel\ApiExceptions\ValidationFailedApiException;
 
 abstract class Request extends FormRequest
 {

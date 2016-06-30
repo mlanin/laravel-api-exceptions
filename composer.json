@@ -1,12 +1,34 @@
 {
-    "name": "notimatica/api-exceptions",
-    "autoload": {
-        "psr-4": {
-            "Notimatica\\ApiExceptions\\": "src/"
+    "name": "lanin/laravel-api-exceptions",
+    "description": "All in one solution for exception for JSON REST APIs on Laravel and Lumen.",
+    "keywords": ["laravel", "framework", "api", "exceptions", "json"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Maxim Lanin",
+            "email": "max@lanin.me",
+            "homepage": "http://lanin.me"
         }
-    },
+    ],
     "require": {
         "php": ">=5.6.0",
-        "illuminate/support": "~5.2"
-    }
+        "illuminate/support": "~5.1"
+    },
+    "require-dev": {
+        "orchestra/testbench": "~3.1",
+        "phpunit/phpunit": "^4.7.6",
+        "mockery/mockery": "0.9.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lanin\\Laravel\\ApiExceptions\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Lanin\\Laravel\\SetupWizard\\Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

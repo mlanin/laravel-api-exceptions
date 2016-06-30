@@ -1,6 +1,6 @@
 <?php
 
-namespace Notimatica\ApiExceptions;
+namespace Lanin\Laravel\ApiExceptions;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;

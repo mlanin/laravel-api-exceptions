@@ -1,6 +1,6 @@
 <?php
 
-namespace Notimatica\ApiExceptions;
+namespace Lanin\Laravel\ApiExceptions;
 
 class IdException extends \RuntimeException
 {
