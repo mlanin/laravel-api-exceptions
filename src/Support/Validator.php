@@ -1,6 +1,6 @@
 <?php
 
-namespace Notimatica\ApiExceptions\Support;
+namespace Lanin\Laravel\ApiExceptions\Support;
 
 class Validator extends \Illuminate\Validation\Validator
 {

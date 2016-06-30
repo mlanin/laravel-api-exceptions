@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Providers;
+namespace Lanin\Laravel\ApiExceptions;
 
 use Illuminate\Support\ServiceProvider;
-use Notimatica\ApiExceptions\Support\Validator;
+use Lanin\Laravel\ApiExceptions\Support\Validator;
 
 class ApiExceptionsServiceProvider extends ServiceProvider
 {

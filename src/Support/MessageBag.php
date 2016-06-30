@@ -1,6 +1,6 @@
 <?php
 
-namespace Notimatica\ApiExceptions\Support;
+namespace Lanin\Laravel\ApiExceptions\Support;
 
 class MessageBag extends \Illuminate\Support\MessageBag
 {

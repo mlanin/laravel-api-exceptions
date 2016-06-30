@@ -1,9 +1,9 @@
 <?php
 
-namespace Notimatica\ApiExceptions;
+namespace Lanin\Laravel\ApiExceptions;
 
 use Exception;
-use Notimatica\ApiExceptions\Contracts\DontReport;
+use Lanin\Laravel\ApiExceptions\Contracts\DontReport;
 
 class ValidationFailedApiException extends ApiException implements DontReport
 {

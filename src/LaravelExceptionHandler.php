@@ -1,13 +1,13 @@
 <?php
 
-namespace Notimatica\ApiExceptions;
+namespace Lanin\Laravel\ApiExceptions;
 
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
-use Notimatica\ApiExceptions\Contracts\DontReport;
+use Lanin\Laravel\ApiExceptions\Contracts\DontReport;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
