@@ -58,22 +58,23 @@ class LumenExceptionHandler extends ExceptionHandler
     {
         switch (true) {
             case $e instanceof ApiException:
-                $response = response()->json($e, $e->getCode(), $e->getHeaders());
                 break;
             case $e instanceof AuthorizationException:
                 $e = new UnauthorizedApiException('', $e);
-                $response = response()->json($e, $e->getCode());
+                break;
+            case $e instanceof MethodNotAllowedHttpException:
+                $e = new MethodNotAllowedApiException('', $e);
                 break;
             case $e instanceof ModelNotFoundException:
             case $e instanceof NotFoundHttpException:
                 $e = new NotFoundApiException();
-                $response = response()->json($e, $e->getCode());
                 break;
             default:
                 $e = new InternalServerErrorApiException('', $e);
-                $response = response()->json($e, $e->getCode());
                 break;
         }
+
+        $response = response()->json($e, $e->getCode(), $e->getHeaders());
 
         return $response;
     }
