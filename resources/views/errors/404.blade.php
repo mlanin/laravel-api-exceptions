@@ -40,7 +40,7 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Page not found.</div>
+                <div class="title">{{ $exception->getMessage() }}</div>
             </div>
         </div>
     </body>
