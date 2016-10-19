@@ -3,8 +3,9 @@
 namespace Lanin\Laravel\ApiExceptions;
 
 use Exception;
+use Lanin\Laravel\ApiExceptions\Contracts\ShowsTrace;
 
-class InternalServerErrorApiException extends ApiException
+class InternalServerErrorApiException extends ApiException implements ShowsTrace
 {
     /**
      * @param string $message
