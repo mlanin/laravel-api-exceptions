@@ -36,7 +36,7 @@ trait ExceptionHandlerTrait
     {
         $e = $this->resolveException($e);
 
-        $response = $request->expectsJson() || env('DEBUG')
+        $response = $request->expectsJson() || !function_exists('view')
             ? $this->renderForApi($e)
             : $this->renderHtmlPage($e);
 
@@ -65,8 +65,10 @@ trait ExceptionHandlerTrait
         $status = $e->getCode();
 
         return view()->exists("errors.{$status}")
-            ? response()->view("errors.{$status}", ['exception' => $e], $status, $e->getHeaders())
-            : $this->renderForApi($e);
+            ? response(view("errors.{$status}", ['exception' => $e]), $status, $e->getHeaders())
+            : (view()->exists("laravel-api-exceptions::errors.{$status}")
+                ? response(view("laravel-api-exceptions::errors.{$status}", ['exception' => $e]), $status, $e->getHeaders())
+                : $this->renderForApi($e));
     }
 
     /**

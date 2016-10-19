@@ -16,8 +16,14 @@ The goal of this package is to provide you with a set of most common exceptions 
 
 To get the latest version of Laravel Laravel-API-Debugger, simply add the following line to the require block of your `composer.json` file.
 
+For Laravel 5.1
 ```
 "lanin/laravel-api-exceptions": "^0.1.0"
+```
+
+For Laravel 5.3
+```
+"lanin/laravel-api-exceptions": "^0.3.0"
 ```
 
 You'll then need to run `composer install` or `composer update` to download it and have the autoloader updated.
@@ -30,7 +36,7 @@ Lanin\Laravel\ApiExceptions\ApiExceptionsServiceProvider::class,
 
 ### Exceptions
 
-Every ApiException can be thrown as a normal exception and they will be automatically serialized to JSON with corresponding HTTP status:
+Every ApiException can be thrown as a normal exception and they will be automatically serialized to JSON with corresponding HTTP status, if user wants json:
 
 ```json
 {
@@ -63,6 +69,16 @@ Also it can have `meta` attribute when there is additional info. For example for
 
 For `ValidationApiException`, meta attribute has `errors` object that contains validations errors.
 Every attribute of this object is a name of a request parameter to validate to and value is an array of errors with description.
+
+### Views
+
+Since version 0.3.0 for Laravel 5.3 package can also return html view of the error, if `Accept` header not equals `application/json`.
+
+To change included views publish them via:
+
+```
+$ php artisan vendor:publish --tag=laravel-api-exceptions
+```
 
 ### Handler
 
