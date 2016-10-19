@@ -1,6 +1,6 @@
 <?php
 
-namespace Lanin\Laravel\SetupWizard\Tests;
+namespace Lanin\Laravel\ApiExceptions\Tests;
 
 use Lanin\Laravel\ApiExceptions\ApiExceptionsServiceProvider;
 
@@ -30,7 +30,6 @@ class ApiExceptionsServiceProviderTest extends TestCase
 
         $property = $this->getPublicProperty($factory, 'resolver');
         $validator = $property->getValue($factory);
-
         $this->assertInstanceOf(\Closure::class, $validator);
     }
 }
