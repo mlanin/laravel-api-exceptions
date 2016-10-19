@@ -42,7 +42,7 @@ class TooManyRequestsApiException extends ApiException implements DontReport
     {
         if ($this->retryAfter) {
             return [
-                'retry_after' => $this->retryAfter,
+                'retry_after' => $this->retryAfter
             ];
         }
     }

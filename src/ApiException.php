@@ -4,6 +4,7 @@ namespace Lanin\Laravel\ApiExceptions;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
+use Symfony\Component\Debug\Exception\FlattenException;
 
 abstract class ApiException extends IdException implements Jsonable, \JsonSerializable, Arrayable
 {
@@ -71,7 +72,7 @@ abstract class ApiException extends IdException implements Jsonable, \JsonSerial
         $return['id'] = $e instanceof IdException ? $e->getId() : snake_case(class_basename($e));
         $return['message'] = $e->getMessage();
 
-        if ($e instanceof self) {
+        if ($e instanceof ApiException) {
             $meta = $this->getMeta();
             if (! empty($meta)) {
                 $return['meta'] = $meta;
@@ -79,10 +80,7 @@ abstract class ApiException extends IdException implements Jsonable, \JsonSerial
         }
 
         if (env('APP_DEBUG')) {
-            $return['trace'] = [
-                'file' => $e->getFile() . ':' . $e->getLine(),
-                'trace' => $e->getTrace(),
-            ];
+            $return['trace'] = FlattenException::create($e)->getTrace();
         }
 
         return $return;
@@ -95,11 +93,7 @@ abstract class ApiException extends IdException implements Jsonable, \JsonSerial
      */
     public function toReport()
     {
-        if ($this->getPrevious() !== null) {
-            return $this->getPrevious();
-        }
-
-        return new \Exception($this->getMessage(), $this->getCode());
+        return $this;
     }
 
     /**
@@ -107,7 +101,5 @@ abstract class ApiException extends IdException implements Jsonable, \JsonSerial
      *
      * @return mixed
      */
-    public function getMeta()
-    {
-    }
+    public function getMeta() {}
 }

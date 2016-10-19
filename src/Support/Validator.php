@@ -41,14 +41,20 @@ class Validator extends \Illuminate\Validation\Validator
      */
     public function passes()
     {
-        $this->messages = new MessageBag();
+        $this->messages = new MessageBag;
 
         // We'll spin through each rule, validating the attributes attached to that
         // rule. Any error messages will be added to the containers with each of
         // the other error messages, returning true if we don't have messages.
         foreach ($this->rules as $attribute => $rules) {
+            $attribute = str_replace('\.', '->', $attribute);
+
             foreach ($rules as $rule) {
-                $this->validate($attribute, $rule);
+                $this->validateAttribute($attribute, $rule);
+
+                if ($this->shouldStopValidating($attribute)) {
+                    break;
+                }
             }
         }
 
@@ -59,6 +65,6 @@ class Validator extends \Illuminate\Validation\Validator
             call_user_func($after);
         }
 
-        return count($this->messages->all()) === 0;
+        return $this->messages->isEmpty();
     }
 }

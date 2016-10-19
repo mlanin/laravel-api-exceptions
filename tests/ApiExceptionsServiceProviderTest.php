@@ -8,11 +8,13 @@ class ApiExceptionsServiceProviderTest extends TestCase
 {
     /** @var ApiExceptionsServiceProvider */
     private $provider;
+
     public function setUp()
     {
         parent::setUp();
         $this->provider = $this->app->getProvider(ApiExceptionsServiceProvider::class);
     }
+
     public function tearDown()
     {
         parent::tearDown();

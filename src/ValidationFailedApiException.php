@@ -31,7 +31,7 @@ class ValidationFailedApiException extends ApiException implements DontReport
     }
 
     /**
-     * Get array of errors.
+     * Get array of errors
      *
      * @return array
      */
