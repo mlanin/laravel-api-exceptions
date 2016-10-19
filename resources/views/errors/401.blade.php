@@ -40,7 +40,7 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">You don't have rights to perform this action.</div>
+                <div class="title">{{ $exception->getMessage() }}</div>
             </div>
         </div>
     </body>

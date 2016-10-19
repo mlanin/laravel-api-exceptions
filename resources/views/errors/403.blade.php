@@ -40,7 +40,7 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">You are unauthorized. <a href="https://notimatica.io/#sign-in">Sign in</a> first.</div>
+                <div class="title">{{ $exception->getMessage() }}</div>
             </div>
         </div>
     </body>
