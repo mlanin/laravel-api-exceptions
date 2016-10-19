@@ -4,6 +4,7 @@ namespace Lanin\Laravel\ApiExceptions;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
+use Lanin\Laravel\ApiExceptions\Contracts\ShowsPrevious;
 use Lanin\Laravel\ApiExceptions\Contracts\ShowsTrace;
 use Symfony\Component\Debug\Exception\FlattenException;
 
@@ -65,7 +66,7 @@ abstract class ApiException extends IdException implements Jsonable, \JsonSerial
     {
         $e = $this;
 
-        if (env('APP_DEBUG') && $this->getPrevious() !== null) {
+        if (env('APP_DEBUG') && $e instanceof ShowsPrevious && $this->getPrevious() !== null) {
             $e = $this->getPrevious();
         }
 
