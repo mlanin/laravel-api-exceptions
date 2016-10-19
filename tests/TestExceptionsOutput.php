@@ -1,5 +1,8 @@
 <?php namespace Lanin\Laravel\ApiExceptions\Tests;
 
+use Lanin\Laravel\ApiExceptions\InternalServerErrorApiException;
+use Symfony\Component\Debug\Exception\FatalErrorException;
+
 class TestExceptionsOutput extends TestCase
 {
     /**
@@ -48,7 +51,7 @@ class TestExceptionsOutput extends TestCase
     public function test_internal_error_error()
     {
         $this->app['router']->get('foo', function () {
-            $new = new UndefinedClass();
+            throw new FatalErrorException('Fatal error.', 0, 1, __FILE__, __LINE__);
         });
 
         $this->json('GET', '/foo')
@@ -66,13 +69,14 @@ class TestExceptionsOutput extends TestCase
         putenv('APP_DEBUG=true');
 
         $this->app['router']->get('foo', function () {
-            $new = new UndefinedClass();
+            throw new FatalErrorException('Fatal error.', 0, 1, __FILE__, __LINE__);
         });
 
         $this->json('GET', '/foo')
             ->seeStatusCode(500)
             ->seeJsonContains([
-                'id' => 'fatal_throwable_error',
+                'id' => 'fatal_error_exception',
+                'message' => 'Fatal error.'
             ])
             ->seeJsonMatchesPath('$.trace');
     }
