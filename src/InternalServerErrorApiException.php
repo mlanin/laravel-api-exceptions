@@ -3,9 +3,10 @@
 namespace Lanin\Laravel\ApiExceptions;
 
 use Exception;
+use Lanin\Laravel\ApiExceptions\Contracts\ShowsPrevious;
 use Lanin\Laravel\ApiExceptions\Contracts\ShowsTrace;
 
-class InternalServerErrorApiException extends ApiException implements ShowsTrace
+class InternalServerErrorApiException extends ApiException implements ShowsTrace, ShowsPrevious
 {
     /**
      * @param string $message
