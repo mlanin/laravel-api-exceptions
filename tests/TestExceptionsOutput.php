@@ -2,6 +2,9 @@
 
 class TestExceptionsOutput extends TestCase
 {
+    /**
+     * @test
+     */
     public function test_404_error_for_json()
     {
         $this->json('POST', '/foo')
@@ -11,6 +14,9 @@ class TestExceptionsOutput extends TestCase
             ]);
     }
 
+    /**
+     * @test
+     */
     public function test_404_error_for_html()
     {
         $this->get('/foo')
@@ -18,6 +24,9 @@ class TestExceptionsOutput extends TestCase
             ->see('Not Found');
     }
 
+    /**
+     * @test
+     */
     public function test_validation_error()
     {
         $this->app['router']->get('foo', function () {
@@ -33,6 +42,9 @@ class TestExceptionsOutput extends TestCase
             ->seeJsonMatchesPath('$.meta.errors.name');
     }
 
+    /**
+     * @test
+     */
     public function test_internal_error_error()
     {
         $this->app['router']->get('foo', function () {
@@ -46,6 +58,9 @@ class TestExceptionsOutput extends TestCase
             ]);
     }
 
+    /**
+     * @test
+     */
     public function test_internal_error_in_debug_mode()
     {
         putenv('APP_DEBUG=true');
