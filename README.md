@@ -60,10 +60,7 @@ Also it can have `meta` attribute when there is additional info. For example for
 				"parameters": ["10"]
 			}]
 		}
-	},
-	"trace": {
-	    ...
-    }
+	}
 }
 ```
 
