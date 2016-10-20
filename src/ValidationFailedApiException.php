@@ -10,7 +10,7 @@ class ValidationFailedApiException extends ApiException implements DontReport
     /**
      * @var array
      */
-    private $errors = [];
+    protected $errors = [];
 
     /**
      * Create a new ValidationFailedApiException.
