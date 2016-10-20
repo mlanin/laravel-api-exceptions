@@ -1,6 +1,7 @@
 <?php namespace Lanin\Laravel\ApiExceptions\Tests;
 
-use Lanin\Laravel\ApiExceptions\InternalServerErrorApiException;
+use Illuminate\Foundation\Http\FormRequest;
+use Lanin\Laravel\ApiExceptions\Support\Request;
 use Symfony\Component\Debug\Exception\FatalErrorException;
 
 class TestExceptionsOutput extends TestCase
@@ -79,5 +80,48 @@ class TestExceptionsOutput extends TestCase
                 'message' => 'Fatal error.'
             ])
             ->seeJsonMatchesPath('$.trace');
+    }
+
+    /**
+     * @test
+     */
+    public function test_form_request_validation_fail()
+    {
+        $this->app['router']->post('foo', function (FooRequest $request) {
+
+        });
+
+        $this->json('POST', '/foo', ['foo' => 'bar'])
+            ->seeStatusCode(422)
+            ->seeJsonContains([
+                'id' => 'validation_failed',
+            ])
+            ->seeJsonMatchesPath('$.meta.errors.name');
+    }
+
+    /**
+     * @test
+     */
+    public function test_form_request_validation_passed()
+    {
+        $this->app['router']->post('foo', function (FooRequest $request) {
+            return response()->json(['foo' => $request->validatedOnly()]);
+        });
+
+        $this->json('POST', '/foo', ['name' => 'bar'])
+            ->seeStatusCode(200)
+            ->seeJson([
+                'name' => 'bar',
+            ]);
+    }
+}
+
+class FooRequest extends Request
+{
+    public function rules()
+    {
+        return [
+            'name' => 'required'
+        ];
     }
 }
