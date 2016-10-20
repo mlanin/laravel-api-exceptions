@@ -48,7 +48,7 @@ class ValidationFailedApiException extends ApiException implements DontReport
     public function getMeta()
     {
         return [
-            'errors' => $this->errors,
+            'errors' => $this->getErrors(),
         ];
     }
 }

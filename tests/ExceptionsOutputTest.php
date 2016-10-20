@@ -1,10 +1,10 @@
 <?php namespace Lanin\Laravel\ApiExceptions\Tests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Lanin\Laravel\ApiExceptions\Support\Request;
 use Symfony\Component\Debug\Exception\FatalErrorException;
 
-class TestExceptionsOutput extends TestCase
+class ExceptionsOutputTest extends TestCase
 {
     /**
      * @test
@@ -112,6 +112,22 @@ class TestExceptionsOutput extends TestCase
             ->seeStatusCode(200)
             ->seeJson([
                 'name' => 'bar',
+            ]);
+    }
+
+    /**
+     * @test
+     */
+    public function test_model_not_found_fail()
+    {
+        $this->app['router']->get('foo', function () {
+            throw new ModelNotFoundException();
+        });
+
+        $this->json('GET', '/foo')
+            ->seeStatusCode(404)
+            ->seeJsonContains([
+                'id' => 'not_found',
             ]);
     }
 }
