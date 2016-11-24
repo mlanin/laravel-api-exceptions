@@ -5,11 +5,10 @@ namespace Lanin\Laravel\ApiExceptions;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Foundation\Testing\HttpException;
 use Illuminate\Session\TokenMismatchException;
 use Illuminate\Validation\ValidationException;
 use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
-
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class LumenExceptionHandler extends ExceptionHandler
 {
