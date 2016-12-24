@@ -36,9 +36,9 @@ trait ExceptionHandlerTrait
     {
         $e = $this->resolveException($e);
 
-        $response = $request->expectsJson() || !function_exists('view')
-            ? $this->renderForApi($e)
-            : $this->renderHtmlPage($e);
+        $response = $request->expectsJson() || ! function_exists('view')
+            ? $this->renderForApi($e, $request)
+            : $this->renderForHtml($e, $request);
 
         return $response->withException($e);
     }
@@ -47,9 +47,10 @@ trait ExceptionHandlerTrait
      * Render exceptions for json API.
      *
      * @param  ApiException $e
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function renderForApi(ApiException $e)
+    protected function renderForApi(ApiException $e, $request)
     {
         return response()->json($e, $e->getCode(), $e->getHeaders());
     }
@@ -58,17 +59,32 @@ trait ExceptionHandlerTrait
      * Render exception for common html request.
      *
      * @param  ApiException $e
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
      */
-    protected function renderHtmlPage(ApiException $e)
+    protected function renderForHtml(ApiException $e, $request)
     {
         $status = $e->getCode();
 
-        return view()->exists("errors.{$status}")
-            ? response(view("errors.{$status}", ['exception' => $e]), $status, $e->getHeaders())
-            : (view()->exists("laravel-api-exceptions::errors.{$status}")
-                ? response(view("laravel-api-exceptions::errors.{$status}", ['exception' => $e]), $status, $e->getHeaders())
-                : $this->renderForApi($e));
+        return $e instanceof ValidationFailedApiException
+            ? $this->convertValidationApiExceptionToResponse($e, $request)
+            : (view()->exists("errors.{$status}")
+                ? response(view("errors.{$status}", ['exception' => $e]), $status, $e->getHeaders())
+                : (view()->exists("laravel-api-exceptions::errors.{$status}")
+                    ? response(view("laravel-api-exceptions::errors.{$status}", ['exception' => $e]), $status, $e->getHeaders())
+                    : $this->renderForApi($e, $request)));
+    }
+
+    /**
+     * Create a response object from the given validation exception.
+     *
+     * @param  ValidationFailedApiException  $e
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    protected function convertValidationApiExceptionToResponse(ValidationFailedApiException $e, $request)
+    {
+        return redirect()->back()->withInput($request->input())->withErrors($e->getNativeErrors());
     }
 
     /**
