@@ -39,6 +39,25 @@ class ValidationFailedApiException extends ApiException implements DontReport
     {
         return $this->errors;
     }
+    
+    /**
+     * Convert and return validations errors in native Laravel way.
+     * 
+     * @return array
+     */
+    public function getNativeErrors()
+    {
+        $return = [];
+
+        foreach ($this->errors as $field => $errors) {
+            $return[$field] = [];
+            foreach ($errors as $error) {
+                $return[$field][] = $error['message'];
+            }
+        }
+
+        return $return;
+    }
 
     /**
      * Add extra info to the output.
