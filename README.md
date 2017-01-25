@@ -91,9 +91,9 @@ And remove everything else. Example:
 
 namespace App\Exceptions;
 
-use Lanin\Laravel\ApiExceptions\LaravelExceptionHandle;
+use Lanin\Laravel\ApiExceptions\LaravelExceptionHandler;
 
-class Handler extends LaravelExceptionHandle
+class Handler extends LaravelExceptionHandler
 {
 
 }
