@@ -1,4 +1,6 @@
 # Laravel-API-Exceptions
+[![Travis](https://img.shields.io/travis/rust-lang/rust.svg)](https://travis-ci.org/mlanin/laravel-api-exceptions)
+
 > All in one solution for exception for JSON REST APIs on Laravel and Lumen.
 
 ## About
