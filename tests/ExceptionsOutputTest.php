@@ -12,8 +12,8 @@ class ExceptionsOutputTest extends TestCase
     public function test_404_error_for_json()
     {
         $this->json('POST', '/foo')
-            ->seeStatusCode(404)
-            ->seeJsonContains([
+            ->assertStatus(404)
+            ->assertJsonFragment([
                 'id' => 'not_found',
             ]);
     }
@@ -24,8 +24,8 @@ class ExceptionsOutputTest extends TestCase
     public function test_404_error_for_html()
     {
         $this->get('/foo')
-            ->seeStatusCode(404)
-            ->see('Not Found');
+            ->assertStatus(404)
+            ->assertSee('Requested object not found');
     }
 
     /**
@@ -39,11 +39,17 @@ class ExceptionsOutputTest extends TestCase
         });
 
         $this->json('GET', '/foo')
-            ->seeStatusCode(422)
-            ->seeJsonContains([
+            ->assertStatus(422)
+            ->assertJsonFragment([
                 'id' => 'validation_failed',
             ])
-            ->seeJsonMatchesPath('$.meta.errors.name');
+            ->assertJsonStructure([
+                'meta' => [
+                    'errors' => [
+                        'name'
+                    ]
+                ]
+            ]);
     }
 
     /**
@@ -56,8 +62,8 @@ class ExceptionsOutputTest extends TestCase
         });
 
         $this->json('GET', '/foo')
-            ->seeStatusCode(500)
-            ->seeJsonContains([
+            ->assertStatus(500)
+            ->assertJsonFragment([
                 'id' => 'internal_server_error',
             ]);
     }
@@ -74,12 +80,14 @@ class ExceptionsOutputTest extends TestCase
         });
 
         $this->json('GET', '/foo')
-            ->seeStatusCode(500)
-            ->seeJsonContains([
+            ->assertStatus(500)
+            ->assertJsonFragment([
                 'id' => 'fatal_error_exception',
                 'message' => 'Fatal error.'
             ])
-            ->seeJsonMatchesPath('$.trace');
+            ->assertJsonStructure([
+                'trace',
+            ]);
     }
 
     /**
@@ -92,11 +100,17 @@ class ExceptionsOutputTest extends TestCase
         });
 
         $this->json('POST', '/foo', ['foo' => 'bar'])
-            ->seeStatusCode(422)
-            ->seeJsonContains([
+            ->assertStatus(422)
+            ->assertJsonFragment([
                 'id' => 'validation_failed',
             ])
-            ->seeJsonMatchesPath('$.meta.errors.name');
+            ->assertJsonStructure([
+                'meta' => [
+                    'errors' => [
+                        'name'
+                    ]
+                ]
+            ]);
     }
 
     /**
@@ -109,8 +123,8 @@ class ExceptionsOutputTest extends TestCase
         });
 
         $this->json('POST', '/foo', ['name' => 'bar'])
-            ->seeStatusCode(200)
-            ->seeJson([
+            ->assertStatus(200)
+            ->assertJsonFragment([
                 'name' => 'bar',
             ]);
     }
@@ -125,8 +139,8 @@ class ExceptionsOutputTest extends TestCase
         });
 
         $this->json('GET', '/foo')
-            ->seeStatusCode(404)
-            ->seeJsonContains([
+            ->assertStatus(404)
+            ->assertJsonFragment([
                 'id' => 'not_found',
             ]);
     }
