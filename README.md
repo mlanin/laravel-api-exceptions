@@ -69,6 +69,27 @@ Also it can have `meta` attribute when there is additional info. For example for
 For `ValidationApiException`, meta attribute has `errors` object that contains validations errors.
 Every attribute of this object is a name of a request parameter to validate to and value is an array of errors with description.
 
+#### Customization
+
+You can customize errors APU response by overriding `formatApiResponse` method in your ExceptionsHandler.
+
+For example if you want to put everything under `error` attribute, you can do it like this:
+
+```php
+/**
+ * Format error message for API response.
+ *
+ * @param  ApiException  $exception
+ * @return mixed
+ */
+protected function formatApiResponse(ApiException $exception)
+{
+    return [
+        'error' => $exception->toArray(),
+    ];
+}
+```
+
 ### Views
 
 Since version 0.3.0 for Laravel 5.3 package can also return html view of the error, if `Accept` header not equals `application/json`.
