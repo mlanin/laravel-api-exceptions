@@ -52,7 +52,7 @@ trait ExceptionHandlerTrait
      */
     protected function renderForApi(ApiException $e, $request)
     {
-        return response()->json($e, $e->getCode(), $e->getHeaders());
+        return response()->json($this->formatApiResponse($e), $e->getCode(), $e->getHeaders());
     }
 
     /**
@@ -120,5 +120,16 @@ trait ExceptionHandlerTrait
         }
 
         return $e;
+    }
+
+    /**
+     * Format error message for API response.
+     *
+     * @param  ApiException  $exception
+     * @return mixed
+     */
+    protected function formatApiResponse(ApiException $exception)
+    {
+        return $exception->toArray();
     }
 }
