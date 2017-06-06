@@ -15,8 +15,8 @@ class ApiExceptionsServiceProvider extends ServiceProvider
     public function boot()
     {
         // Set custom validation resolver
-        $this->app['validator']->resolver(function ($translator, $data, $rules, $messages) {
-            return new Validator($translator, $data, $rules, $messages);
+        $this->app['validator']->resolver(function ($translator, $data, $rules, $messages, $attributes) {
+            return new Validator($translator, $data, $rules, $messages, $attributes);
         });
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'laravel-api-exceptions');
