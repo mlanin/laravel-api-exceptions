@@ -29,6 +29,13 @@
             "Lanin\\Laravel\\ApiExceptions\\Tests\\": "tests/"
         }
     },
+    "extra":{  
+      "laravel":{  
+        "providers":[  
+          "Lanin\\Laravel\\ApiExceptions\\ApiExceptionsServiceProvider"
+        ]
+      }
+    },
     "minimum-stability": "dev",
     "prefer-stable": true
 }
