@@ -30,11 +30,13 @@ For Laravel 5.3
 
 You'll then need to run `composer install` or `composer update` to download it and have the autoloader updated.
 
-Once Laravel-API-Exceptions is installed, you need to register the service provider. Open up `config/app.php` and add the following to the providers key.
+Once Laravel-API-Exceptions is installed, if you're using Laravel 5.1, 5.2, 5.3, and 5.4, you need to register the service provider. Open up `config/app.php` and add the following to the providers key.
 
 ```php
 Lanin\Laravel\ApiExceptions\ApiExceptionsServiceProvider::class,
 ```
+
+If you're using Laravel 5.5, you don't need to add anything in `config/app.php`. It will use package auto discovery feature in Laravel 5.5.
 
 ### Exceptions
 
