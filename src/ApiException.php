@@ -60,7 +60,7 @@ abstract class ApiException extends IdException implements Jsonable, \JsonSerial
     /**
      * Convert exception to array.
      *
-     * @return string
+     * @return array
      */
     public function toArray()
     {
@@ -71,7 +71,7 @@ abstract class ApiException extends IdException implements Jsonable, \JsonSerial
         }
 
         $return = [];
-        $return['id'] = $e instanceof IdException ? $e->getId() : snake_case(class_basename($e));
+        $return['id'] = $e->getId();
         $return['message'] = $e->getMessage();
 
         if ($e instanceof ApiException) {
