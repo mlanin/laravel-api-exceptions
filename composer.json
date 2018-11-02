@@ -37,5 +37,12 @@
       }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Lanin\\Laravel\\ApiExceptions\\ApiExceptionsServiceProvider"
+            ]
+        }
+    }
 }
