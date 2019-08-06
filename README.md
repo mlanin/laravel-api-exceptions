@@ -25,7 +25,7 @@ For Laravel 5.1
 
 For Laravel 5.3
 ```
-"lanin/laravel-api-exceptions": "^0.3.0"
+"lanin/laravel-api-exceptions": "^1.0.0"
 ```
 
 You'll then need to run `composer install` or `composer update` to download it and have the autoloader updated.
@@ -90,16 +90,6 @@ protected function formatApiResponse(ApiException $exception)
         'error' => $exception->toArray(),
     ];
 }
-```
-
-### Views
-
-Since version 0.3.0 for Laravel 5.3 package can also return html view of the error, if `Accept` header not equals `application/json`.
-
-To change included views publish them via:
-
-```
-$ php artisan vendor:publish --tag=laravel-api-exceptions
 ```
 
 ### Handler
