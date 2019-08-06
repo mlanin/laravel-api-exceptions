@@ -14,11 +14,11 @@ trait ExceptionHandlerTrait
 {
     /**
      * Report or log an exception.
-     *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  \Exception  $e
+     * @param \Exception $e
      * @return void
+     * @throws Exception
      */
     public function report(Exception $e)
     {
@@ -66,25 +66,9 @@ trait ExceptionHandlerTrait
     {
         $status = $e->getCode();
 
-        return $e instanceof ValidationFailedApiException
-            ? $this->convertValidationApiExceptionToResponse($e, $request)
-            : (view()->exists("errors.{$status}")
-                ? response(view("errors.{$status}", ['exception' => $e]), $status, $e->getHeaders())
-                : (view()->exists("laravel-api-exceptions::errors.{$status}")
-                    ? response(view("laravel-api-exceptions::errors.{$status}", ['exception' => $e]), $status, $e->getHeaders())
-                    : $this->renderForApi($e, $request)));
-    }
-
-    /**
-     * Create a response object from the given validation exception.
-     *
-     * @param  ValidationFailedApiException  $e
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    protected function convertValidationApiExceptionToResponse(ValidationFailedApiException $e, $request)
-    {
-        return redirect()->back()->withInput($request->input())->withErrors($e->getNativeErrors());
+        return view()->exists("errors.{$status}")
+            ? response(view("errors.{$status}", ['exception' => $e]), $status, $e->getHeaders())
+            : $this->renderForApi($e, $request);
     }
 
     /**

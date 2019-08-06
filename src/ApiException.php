@@ -60,7 +60,7 @@ abstract class ApiException extends IdException implements Jsonable, \JsonSerial
     /**
      * Convert exception to array.
      *
-     * @return string
+     * @return array
      */
     public function toArray()
     {

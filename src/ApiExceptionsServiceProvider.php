@@ -18,14 +18,6 @@ class ApiExceptionsServiceProvider extends ServiceProvider
         $this->app['validator']->resolver(function ($translator, $data, $rules, $messages, $attributes) {
             return new Validator($translator, $data, $rules, $messages, $attributes);
         });
-
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'laravel-api-exceptions');
-
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__.'/../resources/views' => base_path('resources/views'),
-            ], 'laravel-api-exceptions');
-        }
     }
 
     /**
