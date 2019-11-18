@@ -4,6 +4,7 @@ namespace Lanin\Laravel\ApiExceptions;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Support\Str;
 use Lanin\Laravel\ApiExceptions\Contracts\ShowsPrevious;
 use Lanin\Laravel\ApiExceptions\Contracts\ShowsTrace;
 use Symfony\Component\Debug\Exception\FlattenException;
@@ -71,7 +72,7 @@ abstract class ApiException extends IdException implements Jsonable, \JsonSerial
         }
 
         $return = [];
-        $return['id'] = $e instanceof IdException ? $e->getId() : snake_case(class_basename($e));
+        $return['id'] = $e instanceof IdException ? $e->getId() : Str::snake(class_basename($e));
         $return['message'] = $e->getMessage();
 
         if ($e instanceof ApiException) {

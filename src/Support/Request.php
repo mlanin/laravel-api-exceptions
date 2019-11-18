@@ -38,6 +38,6 @@ abstract class Request extends FormRequest
      */
     protected function failedValidation(Validator $validator)
     {
-        throw new ValidationFailedApiException($this->formatErrors($validator));
+        throw new ValidationFailedApiException($validator->getMessageBag()->toArray());
     }
 }

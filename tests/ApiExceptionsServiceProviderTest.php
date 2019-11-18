@@ -9,13 +9,13 @@ class ApiExceptionsServiceProviderTest extends TestCase
     /** @var ApiExceptionsServiceProvider */
     private $provider;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->provider = $this->app->getProvider(ApiExceptionsServiceProvider::class);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
         unset($this->provider);
