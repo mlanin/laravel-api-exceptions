@@ -2,6 +2,8 @@
 
 namespace Lanin\Laravel\ApiExceptions\Support;
 
+use Illuminate\Support\Str;
+
 class Validator extends \Illuminate\Validation\Validator
 {
     /**
@@ -18,7 +20,7 @@ class Validator extends \Illuminate\Validation\Validator
         $message = $this->doReplacements($message, $attribute, $rule, $parameters);
 
         $return  = [
-            'rule' => snake_case($rule),
+            'rule' => Str::snake($rule),
             'message' => $message,
         ];
 

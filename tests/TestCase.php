@@ -2,18 +2,20 @@
 
 namespace Lanin\Laravel\ApiExceptions\Tests;
 
-use Illuminate\Support\Str;
+use Illuminate\Foundation\Application;
 use Lanin\Laravel\ApiExceptions\ApiExceptionsServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
-use PHPUnit_Framework_ExpectationFailedException as PHPUnitException;
 use ReflectionClass;
+use ReflectionException;
+use ReflectionMethod;
+use ReflectionProperty;
 
 abstract class TestCase extends BaseTestCase
 {
     /**
      * Setup the test environment.
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
     }
@@ -21,7 +23,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * Get package providers.
      *
-     * @param  \Illuminate\Foundation\Application $app
+     * @param  Application $app
      *
      * @return array
      */
@@ -35,7 +37,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * Define environment setup.
      *
-     * @param  \Illuminate\Foundation\Application $app
+     * @param  Application $app
      * @return void
      */
     protected function getEnvironmentSetUp($app)
@@ -49,9 +51,10 @@ abstract class TestCase extends BaseTestCase
     /**
      * Make protected/private class property accessible.
      *
-     * @param  string|object $class
-     * @param  string $name
-     * @return \ReflectionProperty
+     * @param string|object $class
+     * @param string $name
+     * @return ReflectionProperty
+     * @throws ReflectionException
      */
     protected function getPublicProperty($class, $name)
     {
@@ -69,9 +72,10 @@ abstract class TestCase extends BaseTestCase
     /**
      * Make protected/private class method accessible.
      *
-     * @param  string $name
-     * @param  string|object $class
-     * @return \ReflectionMethod
+     * @param string $name
+     * @param string|object $class
+     * @return ReflectionMethod
+     * @throws ReflectionException
      */
     protected function getPublicMethod($name, $class)
     {
