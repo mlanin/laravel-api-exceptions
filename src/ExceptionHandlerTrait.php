@@ -16,7 +16,7 @@ trait ExceptionHandlerTrait
      * Report or log an exception.
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param \Exception $e
+     * @param  \Exception $e
      * @return void
      * @throws Exception
      */
@@ -36,39 +36,9 @@ trait ExceptionHandlerTrait
     {
         $e = $this->resolveException($e);
 
-        $response = $request->expectsJson() || ! function_exists('view')
-            ? $this->renderForApi($e, $request)
-            : $this->renderForHtml($e, $request);
+        $response = response()->json($this->formatApiResponse($e), $e->getCode(), $e->getHeaders());
 
         return $response->withException($e);
-    }
-
-    /**
-     * Render exceptions for json API.
-     *
-     * @param  ApiException $e
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    protected function renderForApi(ApiException $e, $request)
-    {
-        return response()->json($this->formatApiResponse($e), $e->getCode(), $e->getHeaders());
-    }
-
-    /**
-     * Render exception for common html request.
-     *
-     * @param  ApiException $e
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
-     */
-    protected function renderForHtml(ApiException $e, $request)
-    {
-        $status = $e->getCode();
-
-        return view()->exists("errors.{$status}")
-            ? response(view("errors.{$status}", ['exception' => $e]), $status, $e->getHeaders())
-            : $this->renderForApi($e, $request);
     }
 
     /**
