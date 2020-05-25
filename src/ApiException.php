@@ -7,7 +7,6 @@ use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Str;
 use Lanin\Laravel\ApiExceptions\Contracts\ShowsPrevious;
 use Lanin\Laravel\ApiExceptions\Contracts\ShowsTrace;
-use Symfony\Component\Debug\Exception\FlattenException;
 
 abstract class ApiException extends IdException implements Jsonable, \JsonSerializable, Arrayable
 {
@@ -83,7 +82,7 @@ abstract class ApiException extends IdException implements Jsonable, \JsonSerial
         }
 
         if (env('APP_DEBUG') && $this instanceof ShowsTrace) {
-            $return['trace'] = FlattenException::create($e)->getTrace();
+            $return['trace'] = \Symfony\Component\ErrorHandler\Exception\FlattenException::create($e)->getTrace();
         }
 
         return $return;

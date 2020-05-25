@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Lanin\Laravel\ApiExceptions\Support\Request;
-use Symfony\Component\Debug\Exception\FatalErrorException;
+use Symfony\Component\ErrorHandler\Error\FatalError;
 
 class ExceptionsOutputTest extends TestCase
 {
@@ -58,7 +58,7 @@ class ExceptionsOutputTest extends TestCase
     public function test_internal_error_error()
     {
         $this->app['router']->get('foo', function () {
-            throw new FatalErrorException('Fatal error.', 0, 1, __FILE__, __LINE__);
+            throw new \Exception('Fatal error');
         });
 
         $this->json('GET', '/foo')
@@ -76,14 +76,14 @@ class ExceptionsOutputTest extends TestCase
         putenv('APP_DEBUG=true');
 
         $this->app['router']->get('foo', function () {
-            throw new FatalErrorException('Fatal error.', 0, 1, __FILE__, __LINE__);
+            throw new \Exception('Fatal error');
         });
 
         $this->json('GET', '/foo')
             ->assertStatus(500)
             ->assertJsonFragment([
-                'id' => 'fatal_error_exception',
-                'message' => 'Fatal error.'
+                'id' => 'exception',
+                'message' => 'Fatal error'
             ])
             ->assertJsonStructure([
                 'trace',
