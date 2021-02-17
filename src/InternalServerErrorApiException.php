@@ -2,7 +2,6 @@
 
 namespace Lanin\Laravel\ApiExceptions;
 
-use Exception;
 use Lanin\Laravel\ApiExceptions\Contracts\ShowsPrevious;
 use Lanin\Laravel\ApiExceptions\Contracts\ShowsTrace;
 
@@ -10,9 +9,9 @@ class InternalServerErrorApiException extends ApiException implements ShowsTrace
 {
     /**
      * @param string $message
-     * @param Exception $previous
+     * @param \Throwable|null $previous
      */
-    public function __construct($message = '', Exception $previous = null)
+    public function __construct($message = '', ?\Throwable $previous = null)
     {
         if (empty($message)) {
             $message = 'The server encountered an internal error or misconfiguration and was unable to complete your request.';

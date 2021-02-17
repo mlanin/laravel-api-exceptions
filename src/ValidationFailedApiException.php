@@ -2,7 +2,6 @@
 
 namespace Lanin\Laravel\ApiExceptions;
 
-use Exception;
 use Lanin\Laravel\ApiExceptions\Contracts\DontReport;
 
 class ValidationFailedApiException extends ApiException implements DontReport
@@ -17,9 +16,9 @@ class ValidationFailedApiException extends ApiException implements DontReport
      *
      * @param array $errors
      * @param string $message
-     * @param Exception $previous
+     * @param \Throwable|null $previous
      */
-    public function __construct(array $errors, $message = '', Exception $previous = null)
+    public function __construct(array $errors, $message = '', ?\Throwable $previous = null)
     {
         $this->errors = $errors;
 

@@ -2,7 +2,6 @@
 
 namespace Lanin\Laravel\ApiExceptions;
 
-use Exception;
 use Lanin\Laravel\ApiExceptions\Contracts\DontReport;
 
 class TooManyRequestsApiException extends ApiException implements DontReport
@@ -16,9 +15,9 @@ class TooManyRequestsApiException extends ApiException implements DontReport
      * @param int|null $retryAfter
      * @param array $headers
      * @param string $message
-     * @param Exception $previous
+     * @param \Throwable|null $previous
      */
-    public function __construct($retryAfter = null, $headers = [],  $message = '', Exception $previous = null)
+    public function __construct($retryAfter = null, $headers = [],  $message = '', ?\Throwable $previous = null)
     {
         $this->retryAfter = $retryAfter;
 

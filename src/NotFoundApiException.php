@@ -2,16 +2,15 @@
 
 namespace Lanin\Laravel\ApiExceptions;
 
-use Exception;
 use Lanin\Laravel\ApiExceptions\Contracts\DontReport;
 
 class NotFoundApiException extends ApiException implements DontReport
 {
     /**
      * @param string $message
-     * @param Exception $previous
+     * @param \Throwable|null $previous
      */
-    public function __construct($message = '', Exception $previous = null)
+    public function __construct($message = '', ?\Throwable $previous = null)
     {
         if (empty($message)) {
             $message = 'Requested object not found.';

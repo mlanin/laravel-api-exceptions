@@ -13,13 +13,13 @@ abstract class ApiException extends IdException implements Jsonable, \JsonSerial
     protected $headers = [];
 
     /**
-     * @param int        $statusCode
-     * @param string     $id
-     * @param string     $message
-     * @param \Exception $previous
-     * @param array      $headers
+     * @param int $statusCode
+     * @param string $id
+     * @param string $message
+     * @param \Throwable|null $previous
+     * @param array $headers
      */
-    public function __construct($statusCode = 0, $id = '', $message = '', \Exception $previous = null, array $headers = [])
+    public function __construct($statusCode = 0, $id = '', $message = '', ?\Throwable $previous = null, array $headers = [])
     {
         $this->headers = $headers;
 

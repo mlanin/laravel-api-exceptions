@@ -9,10 +9,10 @@ class IdException extends \RuntimeException
     /**
      * @param string $id
      * @param string $message
-     * @param \Exception $previous
+     * @param \Throwable|null $previous
      * @param int $code
      */
-    public function __construct($id = '', $message = '', \Exception $previous = null, $code = 0)
+    public function __construct($id = '', $message = '', ?\Throwable $previous = null, $code = 0)
     {
         $this->id = $id;
 
