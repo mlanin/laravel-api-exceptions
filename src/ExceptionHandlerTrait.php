@@ -2,7 +2,6 @@
 
 namespace Lanin\Laravel\ApiExceptions;
 
-use Throwable;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -16,11 +15,11 @@ trait ExceptionHandlerTrait
      * Report or log an exception.
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  Throwable $e
+     * @param  \Throwable $e
      * @return void
-     * @throws Exception
+     * @throws \Throwable
      */
-    public function report(Throwable $e)
+    public function report(\Throwable $e)
     {
         parent::report($e instanceof ApiException ? $e->toReport() : $e);
     }
@@ -29,10 +28,10 @@ trait ExceptionHandlerTrait
      * Render an exception into an HTTP response.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  Throwable  $e
+     * @param  \Throwable  $e
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Throwable $e)
+    public function render($request, \Throwable $e)
     {
         $e = $this->resolveException($e);
 
@@ -44,10 +43,10 @@ trait ExceptionHandlerTrait
     /**
      * Define exception.
      *
-     * @param  Throwable $e
+     * @param  \Throwable $e
      * @return ApiException
      */
-    protected function resolveException(Throwable $e)
+    protected function resolveException(\Throwable $e)
     {
         switch (true) {
             case $e instanceof ApiException:
