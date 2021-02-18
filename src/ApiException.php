@@ -82,7 +82,7 @@ abstract class ApiException extends IdException implements Jsonable, \JsonSerial
         }
 
         if (env('APP_DEBUG') && $this instanceof ShowsTrace) {
-            $return['trace'] = \Symfony\Component\ErrorHandler\Exception\FlattenException::create($e)->getTrace();
+            $return['trace'] = \Symfony\Component\ErrorHandler\Exception\FlattenException::createFromThrowable($e)->getTrace();
         }
 
         return $return;
