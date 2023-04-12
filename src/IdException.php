@@ -1,19 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Lanin\Laravel\ApiExceptions;
 
 class IdException extends \RuntimeException
 {
-    protected $id = '';
-
-    /**
-     * @param string $id
-     * @param string $message
-     * @param \Throwable|null $previous
-     * @param int $code
-     */
-    public function __construct($id = '', $message = '', ?\Throwable $previous = null, $code = 0)
-    {
+    public function __construct(
+        protected string $id = '',
+        string $message = '',
+        ?\Throwable $previous = null,
+        int $code = 0,
+    ) {
         $this->id = $id;
 
         parent::__construct($message, $code, $previous);
@@ -22,7 +20,7 @@ class IdException extends \RuntimeException
     /**
      * @return string
      */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }

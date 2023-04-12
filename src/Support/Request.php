@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Lanin\Laravel\ApiExceptions\Support;
 
 use Illuminate\Contracts\Validation\Validator;
@@ -10,33 +12,20 @@ abstract class Request extends FormRequest
 {
     /**
      * Return only those items that are registered in rules method.
-     *
-     * @return array
      */
-    public function validatedOnly()
+    public function validatedOnly(): array
     {
         $rules = $this->container->call([$this, 'rules']);
 
         return $this->only(array_keys($rules));
     }
 
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Handle a failed validation attempt.
-     *
-     * @param  Validator  $validator
-     * @throws ValidationFailedApiException
-     */
-    protected function failedValidation(Validator $validator)
+    protected function failedValidation(Validator $validator): void
     {
         throw new ValidationFailedApiException($validator->getMessageBag()->toArray());
     }

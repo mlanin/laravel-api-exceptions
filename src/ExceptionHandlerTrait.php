@@ -1,10 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Lanin\Laravel\ApiExceptions;
 
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -14,12 +18,8 @@ trait ExceptionHandlerTrait
     /**
      * Report or log an exception.
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
-     *
-     * @param  \Throwable $e
-     * @return void
-     * @throws \Throwable
      */
-    public function report(\Throwable $e)
+    public function report(\Throwable $e): void
     {
         parent::report($e instanceof ApiException ? $e->toReport() : $e);
     }
@@ -27,9 +27,8 @@ trait ExceptionHandlerTrait
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Throwable  $e
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return JsonResponse
      */
     public function render($request, \Throwable $e)
     {
@@ -42,11 +41,8 @@ trait ExceptionHandlerTrait
 
     /**
      * Define exception.
-     *
-     * @param  \Throwable $e
-     * @return ApiException
      */
-    protected function resolveException(\Throwable $e)
+    protected function resolveException(\Throwable $e): ApiException
     {
         switch (true) {
             case $e instanceof ApiException:
@@ -77,11 +73,8 @@ trait ExceptionHandlerTrait
 
     /**
      * Format error message for API response.
-     *
-     * @param  ApiException  $exception
-     * @return mixed
      */
-    protected function formatApiResponse(ApiException $exception)
+    protected function formatApiResponse(ApiException $exception): array
     {
         return $exception->toArray();
     }

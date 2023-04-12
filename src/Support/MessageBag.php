@@ -1,18 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Lanin\Laravel\ApiExceptions\Support;
 
 class MessageBag extends \Illuminate\Support\MessageBag
 {
-    /**
-     * Format an array of messages.
-     *
-     * @param  array   $messages
-     * @param  string  $format
-     * @param  string  $messageKey
-     * @return array
-     */
-    protected function transform($messages, $format, $messageKey)
+    protected function transform($messages, $format, $messageKey): array
     {
         $messages = (array) $messages;
 

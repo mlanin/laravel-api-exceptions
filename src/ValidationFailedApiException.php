@@ -1,24 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Lanin\Laravel\ApiExceptions;
 
 use Lanin\Laravel\ApiExceptions\Contracts\DontReport;
 
 class ValidationFailedApiException extends ApiException implements DontReport
 {
-    /**
-     * @var array
-     */
-    protected $errors = [];
-
-    /**
-     * Create a new ValidationFailedApiException.
-     *
-     * @param array $errors
-     * @param string $message
-     * @param \Throwable|null $previous
-     */
-    public function __construct(array $errors, $message = '', ?\Throwable $previous = null)
+    public function __construct(protected array $errors, string $message = '', ?\Throwable $previous = null)
     {
         $this->errors = $errors;
 
@@ -29,22 +19,15 @@ class ValidationFailedApiException extends ApiException implements DontReport
         parent::__construct(422, 'validation_failed', $message, $previous);
     }
 
-    /**
-     * Get array of errors
-     *
-     * @return array
-     */
-    public function getErrors()
+    public function getErrors(): array
     {
         return $this->errors;
     }
-    
+
     /**
      * Convert and return validations errors in native Laravel way.
-     * 
-     * @return array
      */
-    public function getNativeErrors()
+    public function getNativeErrors(): array
     {
         $return = [];
 
@@ -58,12 +41,7 @@ class ValidationFailedApiException extends ApiException implements DontReport
         return $return;
     }
 
-    /**
-     * Add extra info to the output.
-     *
-     * @return mixed
-     */
-    public function getMeta()
+    public function getMeta(): array
     {
         return [
             'errors' => $this->getErrors(),

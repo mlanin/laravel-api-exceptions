@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Lanin\Laravel\ApiExceptions;
 
 use Illuminate\Contracts\Support\Arrayable;
@@ -10,59 +12,32 @@ use Lanin\Laravel\ApiExceptions\Contracts\ShowsTrace;
 
 abstract class ApiException extends IdException implements Jsonable, \JsonSerializable, Arrayable
 {
-    protected $headers = [];
-
-    /**
-     * @param int $statusCode
-     * @param string $id
-     * @param string $message
-     * @param \Throwable|null $previous
-     * @param array $headers
-     */
-    public function __construct($statusCode = 0, $id = '', $message = '', ?\Throwable $previous = null, array $headers = [])
-    {
-        $this->headers = $headers;
-
+    public function __construct(
+        int $statusCode = 0,
+        string $id = '',
+        string $message = '',
+        ?\Throwable $previous = null,
+        protected array $headers = [],
+    ) {
         parent::__construct($id, $message, $previous, $statusCode);
     }
 
-    /**
-     * Return headers array.
-     *
-     * @return array
-     */
-    public function getHeaders()
+    public function getHeaders(): array
     {
         return $this->headers;
     }
 
-    /**
-     * Convert the object into something JSON serializable.
-     *
-     * @return array
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         return $this->toArray();
     }
 
-    /**
-     * Convert exception to JSON.
-     *
-     * @param  int $options
-     * @return array
-     */
-    public function toJson($options = 0)
+    public function toJson($options = 0): string
     {
         return json_encode($this->toArray());
     }
 
-    /**
-     * Convert exception to array.
-     *
-     * @return array
-     */
-    public function toArray()
+    public function toArray(): array
     {
         $e = $this;
 
@@ -76,7 +51,7 @@ abstract class ApiException extends IdException implements Jsonable, \JsonSerial
 
         if ($e instanceof ApiException) {
             $meta = $this->getMeta();
-            if (! empty($meta)) {
+            if (!empty($meta)) {
                 $return['meta'] = $meta;
             }
         }
@@ -88,20 +63,16 @@ abstract class ApiException extends IdException implements Jsonable, \JsonSerial
         return $return;
     }
 
-    /**
-     * Prepare exception for report.
-     *
-     * @return string
-     */
-    public function toReport()
+    public function toReport(): self
     {
         return $this;
     }
 
     /**
      * Add extra info to the output.
-     *
-     * @return mixed
      */
-    public function getMeta() {}
+    public function getMeta(): array
+    {
+        return [];
+    }
 }
