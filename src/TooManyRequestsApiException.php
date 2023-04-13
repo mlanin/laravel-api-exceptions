@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Lanin\Laravel\ApiExceptions;
 
 use Lanin\Laravel\ApiExceptions\Contracts\DontReport;
@@ -7,22 +9,18 @@ use Lanin\Laravel\ApiExceptions\Contracts\DontReport;
 class TooManyRequestsApiException extends ApiException implements DontReport
 {
     /**
-     * @var int|null
-     */
-    protected $retryAfter = null;
-
-    /**
      * @param int|null $retryAfter
      * @param array $headers
      * @param string $message
      * @param \Throwable|null $previous
      */
-    public function __construct($retryAfter = null, $headers = [],  $message = '', ?\Throwable $previous = null)
-    {
-        $this->retryAfter = $retryAfter;
-
+    public function __construct(protected ?int $retryAfter = null,
+        array $headers = [],
+        string $message = '',
+        ?\Throwable $previous = null,
+    ) {
         if (empty($message)) {
-            $message = 'Rate limit exceed.';
+            $message = 'Rate limit exceeded.';
         }
 
         if ($retryAfter) {
@@ -32,17 +30,13 @@ class TooManyRequestsApiException extends ApiException implements DontReport
         parent::__construct(429, 'too_many_requests', $message, $previous, $headers);
     }
 
-    /**
-     * Add extra info to the output.
-     *
-     * @return mixed
-     */
-    public function getMeta()
+    public function getMeta(): array
     {
         if ($this->retryAfter) {
             return [
                 'retry_after' => $this->retryAfter
             ];
         }
+        return [];
     }
 }

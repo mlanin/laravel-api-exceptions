@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Lanin\Laravel\ApiExceptions\Support;
 
 use Illuminate\Support\Str;
@@ -7,41 +9,9 @@ use Illuminate\Support\Str;
 class Validator extends \Illuminate\Validation\Validator
 {
     /**
-     * Add an error message to the validator's collection of messages.
-     *
-     * @param  string $attribute
-     * @param  string $rule
-     * @param  array $parameters
-     * @return void
-     */
-    protected function addError($attribute, $rule, $parameters)
-    {
-        $message = $this->getMessage($attribute, $rule);
-        $message = $this->doReplacements($message, $attribute, $rule, $parameters);
-
-        $return  = [
-            'rule' => Str::snake($rule),
-            'message' => $message,
-        ];
-
-        if (! empty($parameters) && ! in_array($rule, ['Unique', 'Exists'])) {
-            $return['parameters'] = $parameters;
-        }
-
-        // Return rule with attribute type for complex size validators
-        if (in_array($rule, $this->sizeRules)) {
-            $return['rule'] .= '.' . $this->getAttributeType($attribute);
-        }
-
-        $this->messages->add($attribute, $return);
-    }
-
-    /**
      * Determine if the data passes the validation rules.
-     *
-     * @return bool
      */
-    public function passes()
+    public function passes(): bool
     {
         $this->messages = new MessageBag;
 

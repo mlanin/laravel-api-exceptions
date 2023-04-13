@@ -1,4 +1,8 @@
-<?php namespace Lanin\Laravel\ApiExceptions\Tests;
+<?php
+
+declare(strict_types=1);
+
+namespace Lanin\Laravel\ApiExceptions\Tests;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Lanin\Laravel\ApiExceptions\Support\Request;
